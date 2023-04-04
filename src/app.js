@@ -16,6 +16,9 @@ app.get("/tasks", (req, res) => {
 
 app.post("/tasks", (req, res) => {
     const {title, description} = req.body;
+
+    if (!title || !description) return res.sendStatus(400);
+
     res.json({
         id: v4(),
         title,
