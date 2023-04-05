@@ -43,39 +43,43 @@ describe('POST /tasks', () => {
     });
 
     describe('when title and description are missing', () => {
-        // const fields = [
-        //     {},
-        //     {
-        //         title: 'Title'
-        //     },
-        //     {
-        //         description: 'Description'
-        //     }
-        // ];
+        test('should respond witha 400 status code', async () => {
+            // Es mas rapido pero...
+            // Aca se testean 3 casos en 1. No es muy descriptivo por lo que no se si usarlo...
+            const fields = [
+                {},
+                {
+                    title: 'Title'
+                },
+                {
+                    description: 'Description'
+                }
+            ];
+            for (const body of fields) {
+                const response = await request(app).post('/tasks').send(body);
+                expect(response.statusCode).toBe(400);
+            }
+        })
+        
 
-        // for (const body of fields) {
+        // test('should response with a 400 status code when both are missing', async () => {
         //     const response = await request(app).post('/tasks').send({});
         //     expect(response.statusCode).toBe(400);
-        // }
+        // });
 
-        test('should response with a 400 status code when both are missing', async () => {
-            const response = await request(app).post('/tasks').send({});
-            expect(response.statusCode).toBe(400);
-        });
+        // test('should response with a 400 status code when title is missing', async () => {
+        //     const response = await request(app).post('/tasks').send({
+        //         description: "Description"
+        //     });
+        //     expect(response.statusCode).toBe(400);
+        // });
 
-        test('should response with a 400 status code when title is missing', async () => {
-            const response = await request(app).post('/tasks').send({
-                description: "Description"
-            });
-            expect(response.statusCode).toBe(400);
-        });
-
-        test('should response with a 400 status code when description is missing', async () => {
-            const response = await request(app).post('/tasks').send({
-                title: "Title"
-            });
-            expect(response.statusCode).toBe(400);
-        });
+        // test('should response with a 400 status code when description is missing', async () => {
+        //     const response = await request(app).post('/tasks').send({
+        //         title: "Title"
+        //     });
+        //     expect(response.statusCode).toBe(400);
+        // });
         
     });
 
